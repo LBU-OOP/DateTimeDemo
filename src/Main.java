@@ -9,8 +9,14 @@
 public class Main {
     public static void main(String[] args) {
         DateTime now = new DateTime();
-        DateTime holiday = new DateTime(2026,8, 27,12,30,0);
-        System.out.println(holiday);
         now.setTime(2026,3,4,9,25,0);
+        DateTime holiday = new DateTime(2026,8, 27,12,30,0);
+        DateTime notLeap = new DateTime(2029,2,28,23,59,59);
+        DateTime leap = new DateTime(2028,2,28,23,59,59);
+        notLeap.addSeconds(1);
+        leap.addSeconds(1);
+        System.out.println(notLeap); //automatically calls object's (DateTime) toString() method
+        System.out.println(leap);
+
     }
 }

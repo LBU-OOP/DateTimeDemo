@@ -53,10 +53,55 @@ public class DateTime extends Time{
      * Overridden toSTring() calls original toSTring in parent class to print the time part , then adds the date part
      * @return String  (date) (time)
      */
+    @Override //this is a tag that isn't technically necessary but it tells the compiler and another engineer that this is not a new method
     public String toString()
     {
         String time = super.toString();
         String date =  String.format("%02d-%02d-%02d", this.year, this.month, this.day);
         return date+" "+time;
+    }
+
+    // Override the parent addHours to handle day carry-over
+    @Override
+    public void addHours(int hoursToAdd) {
+        int totalHours = getHour() + hoursToAdd;
+        setHour(totalHours % 24); // Use parent setters/getters
+
+        int dayCarry = totalHours / 24;
+        if (dayCarry > 0) {
+            addDays(dayCarry);
+        }
+    }
+
+    public void addDays(int daysToAdd) {
+        this.day += daysToAdd;
+        // While the current day exceeds the max days in the current month
+        while (this.day > daysInMonth(this.month, this.year)) {
+            this.day -= daysInMonth(this.month, this.year);
+            addMonths(1);
+        }
+    }
+
+    public void addMonths(int monthsToAdd) {
+        int totalMonths = (this.month - 1) + monthsToAdd; // 0-indexed for math
+        this.month = (totalMonths % 12) + 1;             // Back to 1-indexed
+        addYears(totalMonths / 12);
+    }
+
+    public void addYears(int yearsToAdd) {
+        this.year += yearsToAdd;
+    }
+
+    // Helper to handle varying month lengths and leap years
+    private int daysInMonth(int m, int y) {
+        return switch (m) {
+            case 4, 6, 9, 11 -> 30;
+            case 2 -> (isLeapYear(y) ? 29 : 28);
+            default -> 31;
+        };
+    }
+
+    private boolean isLeapYear(int y) {
+        return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);
     }
 }
