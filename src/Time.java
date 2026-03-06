@@ -1,3 +1,6 @@
+/**
+ * Time Class define a Time of hour, minute, seconds
+ */
 public class Time
 {
     private int hour, minute, second;
@@ -15,6 +18,12 @@ public class Time
         this.second = second;
     }
 
+    public void setTime(int hour, int minute, int second)
+    {
+        setHour(hour);
+        setMinute(minute);
+        setSecond(second);
+    }
     public int getHour() {
         return hour;
     }
@@ -40,5 +49,9 @@ public class Time
     public void setSecond(int second) {
         if (second < 0 || second > 59) return ;
         this.second = second;
+    }
+    public String toString()
+    {
+        return String.format("%02d:%02d:%02d", this.hour, this.minute, this.second);
     }
 }

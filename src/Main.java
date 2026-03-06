@@ -1,3 +1,9 @@
+/**
+ * DateTime demo
+ * This has two classes, the Time class defines a class with hours minutes and seconds
+ * The DateTime extends Time to add on Year, Month, Day by utilising the original Time class it has hour, minute, second as well
+ * the toSTring() method (overridden from Object class) is further overridden
+ */
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -5,5 +11,6 @@ public class Main {
         DateTime now = new DateTime();
         DateTime holiday = new DateTime(2026,8, 27,12,30,0);
         System.out.println(holiday);
+        now.setTime(2026,3,4,9,25,0);
     }
 }
